@@ -60,9 +60,6 @@
     " Set history size to maximum
     set history=500
 
-    " Change directory to working directory
-    auto BufEnter * call CHANGE_CURR_DIR()
-
     set ts=4 " tabstop - how many colums should the cursor move for one tab
     set sw=4 " shiftwidth - how many columns should the text be indented
     set wrap " wraps long lines
@@ -149,9 +146,7 @@
     map <C-L> <C-W>l<C-W>|
     map <C-=> <C-W>=
     
-    " Custom exit sequence
-    map jk <Esc>
-
+    map <F3> :NERDTreeToggle<CR>
     " save the current file
     map <C-S> :w<CR>
     
@@ -183,14 +178,6 @@
         set undofile
     catch
     endtry
-
-" CUSTOM FUNCTIONS
-"
-    function! CHANGE_CURR_DIR()
-        let _dir = expand("%:p:h")
-        exec "cd " . _dir
-        unlet _dir
-    endfunction
 
 " Buffergator
     let g:buffergator_viewport_split_policy="B"
@@ -227,6 +214,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'ryanoasis/vim-devicons'
     Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-commentary'
+    Plug 'scrooloose/nerdtree'
 " Initialize plugin system
 call plug#end()
 
