@@ -1,5 +1,15 @@
 " General config, better formatting pending
 "
+
+    let g:elite_mode=1 " no arrows
+    " Disable arrow movement, resize splits instead.
+    if get(g:, 'elite_mode')
+        nnoremap <Up>    :resize +2<CR>
+        nnoremap <Down>  :resize -2<CR>
+        nnoremap <Left>  :vertical resize +2<CR>
+        nnoremap <Right> :vertical resize -2<CR>
+    endif
+
     let mapleader="," 
     let g:mapleader="," 
 
@@ -24,9 +34,6 @@
     " Ignore case when searching
     set ignorecase
 
-    " Highlight search results
-    set hlsearch
-
     " Makes search act like search in modern browsers
     set incsearch 
 
@@ -38,7 +45,7 @@
     " When searching try to be smart about cases 
     set smartcase
 
-    set guifont= Fira\ Code:h10
+    set guifont=Fira\ Code:h10
 
     set bs=2 " allow backspacing over everything in insert mode
     set showmatch " show matching brackets
@@ -79,7 +86,6 @@
     " 1 tab == 4 spaces
     set shiftwidth=4
     set tabstop=4
-    €ý,€ý,
     " Use Unix as the standard file type
     set ffs=unix,dos,mac
     " Turn backup off, since most stuff is in SVN, git et.c anyway...
@@ -90,7 +96,8 @@
     set background=dark
     colorscheme gruvbox
 
-    set vb t_vb= " stop beeping or flashing the screen
+    autocmd GUIEnter * set vb t_vb= " for your GUI
+    autocmd VimEnter * set vb t_vb=
     set laststatus=2 " Show the status line even if only one file is being edited
     set ruler " Show ruler
     set go=c " Following line removes the toolbar, As I usually dont need it.  Gives me extra lines for editor. If you have big monitor and you think you need toolbar, comment this line.
@@ -101,24 +108,36 @@
         " show buffer number in status line - http://stackoverflow.com/questions/5547943/display-number-of-current-buffer
         " Status Line Configuration {  
                 set laststatus=2                             " always show statusbar  
-                set statusline=  
-                set statusline+=%-10.3n\                     " buffer number  
-                set statusline+=%f\                          " filename   
-                set statusline+=%h%m%r%w                     " status flags  
-                set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type  
-                set statusline+=%=                           " right align remainder  
-                set statusline+=0x%-8B                       " character value  
-                set statusline+=%-14(%l,%c%V%)               " line, character  
-                set statusline+=%<%P                         " file position  
+" if has("statusline") && !&cp
+"   set laststatus=2  " always show the status bar
+
+"   " Start the status line
+"   set statusline=%f\ %m\ %r
+"   set statusline+=Line:%l/%L[%p%%]
+"   set statusline+=Col:%v
+"   set statusline+=Buf:#%n
+"   set statusline+=[%b][0x%B]
+" endif
+                 set statusline=  
+                 set statusline+=%-10.3n\                     " buffer number  
+                 set statusline+=%f\                          " filename   
+                 set statusline+=%h%m%r%w                     " status flags  
+                 set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type  
+                 set statusline+=%=                           " right align remainder  
+                 set statusline+=0x%-8B                       " character value  
+                 set statusline+=%-14(%l,%c%V%)               " line, character  
+                 set statusline+=%<%P                         " file position  
         "}          
         " always enable Vim tabs
             set showtabline=2
         " set tab features just like browser
         " open tab, close tab, next tab, previous tab (just like Chrome and Firefox keyboard shortcuts)
-          map <C-t> <Esc>:tabnew<CR>
-          map <C-F4> <Esc>:tabclose<CR>
-          map <C-Tab> <Esc>:tabnext<CR>
-          map <C-S-Tab> <Esc>:tabprev<CR>
+        " Useful mappings for managing tabs
+        map <leader>tn :tabnew<cr>
+        map <leader>to :tabonly<cr>
+        map <leader>tc :tabclose<cr>
+        map <leader>tm :tabmove 
+        map <leader>t<leader> :tabnext 
       endif
 
     " CUSTOM MAPS
@@ -129,6 +148,9 @@
     map <C-H> <C-W>h<C-W>|
     map <C-L> <C-W>l<C-W>|
     map <C-=> <C-W>=
+    
+    " Custom exit sequence
+    map jk <Esc>
 
     " save the current file
     map <C-S> :w<CR>
@@ -170,6 +192,10 @@
         unlet _dir
     endfunction
 
+" Buffergator
+    let g:buffergator_viewport_split_policy="B"
+    let g:buffergator_autoexpand_on_split=0
+    let g:buffergator_split_size=3
 " Vimwiki configuration
 "
     let g:vimwiki_list = [{
@@ -195,6 +221,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'vimwiki/vimwiki'
     Plug 'pangloss/vim-javascript'
     Plug 'chase/vim-ansible-yaml'
+    Plug 'tpope/vim-fugitive'
+    Plug 'jeetsukumaran/vim-buffergator'
+    Plug 'gilsondev/searchtasks.vim'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'scrooloose/syntastic'
+    Plug 'tpope/vim-commentary'
 " Initialize plugin system
 call plug#end()
 
