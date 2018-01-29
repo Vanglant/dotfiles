@@ -1,0 +1,5 @@
+﻿set visualbell
+set showmode
+set clipboard+=unnamed
+set number
+set relativenumber
