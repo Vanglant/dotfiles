@@ -1,6 +1,7 @@
 " General config, better formatting pending
 "
-
+    let g:VimuxOrientation="v"
+    let g:solarized_old_cursor_style=1
     let g:elite_mode=1 " no arrows
     " Disable arrow movement, resize splits instead.
     if get(g:, 'elite_mode')
@@ -66,10 +67,11 @@
     set encoding=utf-8 " The encoding displayed
     set fileencoding=utf-8 " The encoding written to file
 
+    set termguicolors
     " Enable 256 colors palette in Gnome Terminal
-    if $COLORTERM == 'gnome-terminal'
-        set t_Co=256
-    endif
+    set t_Co=256
+    set background=light
+    colorscheme gruvbox
 
     " Use spaces instead of tabs
     set expandtab
@@ -90,8 +92,7 @@
     set nowb
     set noswapfile
 
-    set background=dark
-    colorscheme gruvbox
+    let g:airline_theme='hybrid'
 
     autocmd GUIEnter * set vb t_vb= " for your GUI
     autocmd VimEnter * set vb t_vb=
@@ -149,6 +150,7 @@
     map <F3> :NERDTreeToggle<CR>
     " save the current file
     map <C-S> :w<CR>
+    map <leader>w :w<CR>
     
     " folding shorcuts
     map - v%zf
@@ -157,6 +159,9 @@
     " Select all
     map <C-a> ggVG
 
+    " Go maps
+    "
+    map <leader>gr :GoRun
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     map <leader>e :e! ~/.vimrc<cr>
@@ -197,6 +202,12 @@
 " Plugins Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
+"   If it's empty, no plug installed, install it
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.vim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'vim-airline/vim-airline'
@@ -214,7 +225,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'ryanoasis/vim-devicons'
     Plug 'scrooloose/syntastic'
     Plug 'tpope/vim-commentary'
+    Plug 'benmills/vimux'
     Plug 'scrooloose/nerdtree'
+    Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+    Plug 'jiangmiao/auto-pairs'
 " Initialize plugin system
 call plug#end()
 
