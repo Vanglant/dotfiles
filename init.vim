@@ -175,11 +175,6 @@
         set undofile
     catch
     endtry
-" Google Calendar
-let g:calendar_google_calendar = 1
-" Markdown Config
-"
-    "au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
 " Buffergator
     let g:buffergator_viewport_split_policy="B"
@@ -188,13 +183,13 @@ let g:calendar_google_calendar = 1
 " Vimwiki configuration
 "
     let g:vimwiki_list = [{
-        \ 'path': '~/Dropbox/DOCS/wiki',
-        \ 'template_path': '~/Dropbox/DOCS/wiki/templates',
+        \ 'path': 'D:\user\Dropbox\DOCS\wiki',
+        \ 'template_path': 'D:\user\Dropbox\DOCS\wiki\templates',
         \ 'syntax': 'markdown', 
         \ 'ext': '.md',
         \ 'template_default': 'default',
         \ 'template_ext': '.html',
-        \ 'css_file': '~/Dropbox/DOCS/wiki/css/style.css',
+        \ 'css_file': 'D:\user\Dropbox\DOCS\wiki\css\style.css',
         \ 'auto_toc': 1}]
 " Plugins Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -231,7 +226,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'   
     Plug 'jiangmiao/auto-pairs'
-    Plug 'itchyny/calendar.vim'
 " Initialize plugin system
 call plug#end()
 
