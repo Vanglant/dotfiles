@@ -1,5 +1,0 @@
-{
-"prettier.eslintIntegration": true,
-"coc.preferences.formatOnsaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact","rust"],
-"eslint.filetypes": ["javascript","javascriptreact", "typescript", "typescriptreact"]
-}
