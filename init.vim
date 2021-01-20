@@ -76,27 +76,10 @@ set hidden
 set hlsearch
 set mousehide
 
-
-call plug#begin(stdpath('data') . '/plugged')
-
-Plug 'editorconfig/editorconfig-vim'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-Plug 'jiangmiao/auto-pairs'
-Plug 'godlygeek/tabular'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'tjdevries/colorbuddy.nvim' 
-Plug 'npxbr/gruvbox.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-call plug#end()
-
+lua require('plugins')
 
 set background=dark
+
 lua require("colorbuddy").colorscheme("gruvbox")
 
 if exists('+termguicolors')
@@ -118,7 +101,8 @@ EOF
 " -------------------- LSP ---------------------------------
 lua <<EOF
     local pid = vim.fn.getpid()
-    local omnisharp_bin = "C:/Users/MAVNarva/scoop/apps/omnisharp/current/OmniSharp.exe"
+    local choco_bin_dir = os.getenv ('ProgramData') .. 'chocolatey/bin/'
+    local omnisharp_bin = choco_bin_dir .. 'OmniSharp.exe'
     local nvim_lsp = require('lspconfig')
     nvim_lsp.omnisharp.setup{
         cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
