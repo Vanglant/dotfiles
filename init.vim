@@ -78,8 +78,6 @@ set mousehide
 
 lua require('plugins')
 
-set background=dark
-
 lua require("colorbuddy").colorscheme("gruvbox")
 
 if exists('+termguicolors')
@@ -92,6 +90,7 @@ endif
 lua require('eviline')
 " -------------------- Treesitter -------------------------
 lua <<EOF
+    require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
     require'nvim-treesitter.configs'.setup{
         highlight = {
             enable = true
@@ -108,6 +107,7 @@ lua <<EOF
         cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
         on_attach = require'completion'.on_attach
     }
+    nvim_lsp.clangd.setup{}
 EOF
 
 " Completion

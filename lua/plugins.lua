@@ -13,18 +13,22 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
     use {'wbthomason/packer.nvim', opt = true}
     use { 'editorconfig/editorconfig-vim' }
-    use { 'glepnir/galaxyline.nvim', branch = 'main' }
     use { 'jiangmiao/auto-pairs' }
     use { 'godlygeek/tabular' }
     use { 'neovim/nvim-lspconfig' }
     use { 'nvim-lua/completion-nvim' }
-    use { 'nvim-lua/popup.nvim' }
-    use { 'nvim-lua/plenary.nvim' }
     use {  
         'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
-    use { 'kyazdani42/nvim-web-devicons' }
+     use {
+    'glepnir/galaxyline.nvim',
+        branch = 'main',
+        -- your statusline
+        config = function() require'eviline' end,
+        -- some optional icons
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
     use { 'npxbr/gruvbox.nvim', requires = 'tjdevries/colorbuddy.nvim' }
     use { 'nvim-treesitter/nvim-treesitter' }
 end)

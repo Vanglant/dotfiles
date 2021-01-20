@@ -1,2 +1,2 @@
-GuiFont! Jetbrains\ Mono:h11
+GuiFont! JetBrainsMono\ Nerd\ Font\ Mono:h11
 GuiPopupmenu 0
