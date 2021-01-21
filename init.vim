@@ -79,6 +79,8 @@ set hidden
 set hlsearch
 set mousehide
 
+inoremap jk <esc>
+
 lua require('plugins')
 
 lua require("colorbuddy").colorscheme("gruvbox")
@@ -112,7 +114,9 @@ lua <<EOF
         cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
         on_attach = require'completion'.on_attach
     }
-    -- nvim_lsp.clangd.setup{}
+    nvim_lsp.clangd.setup{
+        on_attach = require'completion'.on_attach
+    }
 EOF
 
 " Completion
