@@ -31,4 +31,5 @@ return require('packer').startup(function()
     }
     use { 'npxbr/gruvbox.nvim', requires = 'tjdevries/colorbuddy.nvim' }
     use { 'nvim-treesitter/nvim-treesitter' }
+    use { 'mhinz/vim-startify' }
 end)

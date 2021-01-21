@@ -26,6 +26,9 @@ set fileencoding=utf-8 " The encoding written to file
 set showcmd
 set number relativenumber
 
+set list
+set listchars=trail:·,tab:>-,nbsp:␣
+
 " Indentation
 """""""""""""""""""""""""""""""""""""""
 " Global configuration
@@ -100,14 +103,16 @@ EOF
 " -------------------- LSP ---------------------------------
 lua <<EOF
     local pid = vim.fn.getpid()
-    local choco_bin_dir = os.getenv ('ProgramData') .. 'chocolatey/bin/'
+    local choco_bin_dir = os.getenv ('USERPROFILE') .. '\\scoop\\apps\\omnisharp\\current\\'
     local omnisharp_bin = choco_bin_dir .. 'OmniSharp.exe'
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
     local nvim_lsp = require('lspconfig')
     nvim_lsp.omnisharp.setup{
         cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
         on_attach = require'completion'.on_attach
     }
-    nvim_lsp.clangd.setup{}
+    -- nvim_lsp.clangd.setup{}
 EOF
 
 " Completion
@@ -131,6 +136,8 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -148,5 +155,6 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fl <cmd>Telescope git_files<cr>
+nnoremap <leader>ca <cmd>Telescope lsp_code_actions<cr>
 
 
