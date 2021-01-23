@@ -17,7 +17,7 @@ return require('packer').startup(function()
     use { 'godlygeek/tabular' }
     use { 'neovim/nvim-lspconfig' }
     use { 'nvim-lua/completion-nvim' }
-    use {  
+    use {
         'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
@@ -32,4 +32,12 @@ return require('packer').startup(function()
     use { 'npxbr/gruvbox.nvim', requires = 'tjdevries/colorbuddy.nvim' }
     use { 'nvim-treesitter/nvim-treesitter' }
     use { 'mhinz/vim-startify' }
+    use { 'preservim/nerdtree' }
+    use { 'davidosomething/vim-colors-meh' }
+    use { 'huyvohcmc/atlas.vim' }
+    use { 'Lokaltog/vim-monotone' }
+    use { 'aditya-azad/candle-grey' }
+    use { 'andreypopp/vim-colors-plain' }
+    use { 'jaredgorski/fogbell.vim' }
+    use { 'fxn/vim-monochrome' }
 end)

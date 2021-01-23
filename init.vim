@@ -78,6 +78,9 @@ set showmatch
 set hidden
 set hlsearch
 set mousehide
+set mouse=a
+
+source $VIMRUNTIME/mswin.vim " allow copy paste
 
 inoremap jk <esc>
 
