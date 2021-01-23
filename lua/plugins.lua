@@ -13,7 +13,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
     use {'wbthomason/packer.nvim', opt = true}
     use { 'editorconfig/editorconfig-vim' }
-    use { 'jiangmiao/auto-pairs' }
+    -- use { 'jiangmiao/auto-pairs' }
     use { 'godlygeek/tabular' }
     use { 'neovim/nvim-lspconfig' }
     use { 'nvim-lua/completion-nvim' }
@@ -33,6 +33,9 @@ return require('packer').startup(function()
     use { 'nvim-treesitter/nvim-treesitter' }
     use { 'mhinz/vim-startify' }
     use { 'preservim/nerdtree' }
+    use { 'windwp/nvim-autopairs' }
+
+    -- Testing themes
     use { 'davidosomething/vim-colors-meh' }
     use { 'huyvohcmc/atlas.vim' }
     use { 'Lokaltog/vim-monotone' }
