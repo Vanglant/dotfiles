@@ -83,6 +83,7 @@ set mouse=a
 source $VIMRUNTIME/mswin.vim " allow copy paste
 
 inoremap jk <esc>
+map <F4> :nohl<CR>
 
 lua require('plugins')
 
@@ -93,6 +94,9 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
+
+let g:rooter_patterns = ['.git', '*.sln']
+let g:rooter_targets = '/,*.cs'
 
 " -------------------- GalaxyLine -------------------------
 lua require('eviline')

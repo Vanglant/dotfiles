@@ -34,6 +34,7 @@ return require('packer').startup(function()
     use { 'mhinz/vim-startify' }
     use { 'preservim/nerdtree' }
     use { 'windwp/nvim-autopairs' }
+    use { 'airblade/vim-rooter' }
 
     -- Testing themes
     use { 'davidosomething/vim-colors-meh' }
@@ -43,4 +44,5 @@ return require('packer').startup(function()
     use { 'andreypopp/vim-colors-plain' }
     use { 'jaredgorski/fogbell.vim' }
     use { 'fxn/vim-monochrome' }
+
 end)
