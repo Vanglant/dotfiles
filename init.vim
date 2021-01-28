@@ -109,6 +109,27 @@ lua <<EOF
         }
     }
 EOF
+" -------------------- Completion -------------------------
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+
+lua <<EOF
+require'compe'.setup {
+  enabled = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  allow_prefix_unmatch = false;
+
+  source = {
+    path = true;
+    buffer = true;
+    vsnip = true;
+    nvim_lsp = true;
+  };
+}
+EOF
 " -------------------- LSP ---------------------------------
 lua <<EOF
     local pid = vim.fn.getpid()
@@ -118,46 +139,17 @@ lua <<EOF
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
     local nvim_lsp = require('lspconfig')
     nvim_lsp.omnisharp.setup{
-        cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-        on_attach = require'completion'.on_attach
+        cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) }
     }
-    nvim_lsp.clangd.setup{
-        on_attach = require'completion'.on_attach
-    }
+    nvim_lsp.clangd.setup{ }
 EOF
 
 " ----------------- Auto close pairs ------------------------
 lua <<EOF
     require('nvim-autopairs').setup()
-    -- this is my mapping with completion-nvim
-    local remap = vim.api.nvim_set_keymap
-    local npairs = require('nvim-autopairs')
-
-    -- skip it, if you use another global object
-    _G.MUtils= {}
-
-    vim.g.completion_confirm_key = ""
-
-    MUtils.completion_confirm=function()
-    if vim.fn.pumvisible() ~= 0  then
-        if vim.fn.complete_info()["selected"] ~= -1 then
-        require'completion'.confirmCompletion()
-        return npairs.esc("<c-y>")
-        else
-        vim.fn.nvim_select_popupmenu_item(0 , false , false ,{})
-        require'completion'.confirmCompletion()
-        return npairs.esc("<c-n><c-y>")
-        end
-    else
-        return npairs.check_break_line_char()
-    end
-    end
-
-    remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
 EOF
 
 " Completion
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
